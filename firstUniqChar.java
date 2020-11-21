@@ -1,16 +1,18 @@
 class Solution {
     public int firstUniqChar(String s) {
-        Map<Character,Integer> map = new LinkedHashMap<>();
+        int[] arr = new int[26];
+        //Map<Character,Integer> map = new LinkedHashMap<>();
         for (int i=0;i<s.length();i++) {
-            map.put(s.charAt(i),map.getOrDefault(s.charAt(i),0)+1);
+            arr[s.charAt(i)-'a']++;
         }
-       //System.out.println(map);
-        for (char k:map.keySet()) {
-            if (map.get(k)==1) {
-                return s.indexOf(k);
+       
+        int ind=s.length();
+        for (int j=0;j<26;j++) {
+            if (arr[j]==1 && s.indexOf(j+'a')<=ind) {
+                ind = s.indexOf(j+'a');
             }
         }
-        
-        return -1;
+        //System.out.println(ind);
+        return ind==s.length()?-1:ind;
     }
 }
